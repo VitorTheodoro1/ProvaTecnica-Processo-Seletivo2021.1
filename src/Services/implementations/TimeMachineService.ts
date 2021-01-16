@@ -36,14 +36,26 @@ class TimeMachineService implements ITimeMachineService{
         const sunDistance = 149600; //megaMetro -> Mm
         //constante necessária
         //CALC
+        
+
 
         const timeDifferential = calculateTimeDifferential(timeMachine);
 
         let position:SpacePoint = {x:0,y:0,z:0};
-        /**
-         * Calculo com o position
-         * Consulte o readme
-         */
+        
+        if (timeDifferential<0)
+        {
+                position.x = Math.sin(timeDifferential)*sunDistance
+                position.y =  Math.cos(sunDistance)*sunDistance
+                position.z = timeMachine.currentPosition.z
+
+        }
+        else
+        {
+            position.x = Math.cos(timeDifferential)*sunDistance
+            position.y = Math.sin(sunDistance)*sunDistance
+            position.z = timeMachine.currentPosition.z
+        }
 
        
         return position;
@@ -54,11 +66,13 @@ class TimeMachineService implements ITimeMachineService{
         const timeBalance = calculateTimeBalance(timeMachine);
         //CALC
         let position:SpacePoint = {x:0,y:0,z:0};
-        /**
-         * Calculo com o position
-         * Consulte o readme
-         */
-       
+        
+        position.x = Math.abs(timeBalance.day*(solarSystemPosition.x + 20))
+        position.y = Math.abs(timeBalance.month*(solarSystemPosition.x + 11))
+        position.z = Math.abs(timeBalance.year*(solarSystemPosition.x + 2020))
+
+
+
         return position;
     }
 
@@ -71,10 +85,11 @@ class TimeMachineService implements ITimeMachineService{
         //CALC
 
         let position:SpacePoint = {x:0,y:0,z:0};
-        /**
-         * Calculo com o position
-         * Consulte o readme
-         */
+        
+        position.x = Math.abs(syncPulsars*spaceTime/galaxyPosition.x)
+        position.y = Math.abs(syncPulsars*spaceTime/galaxyPosition.y)
+        position.z = Math.abs(syncPulsars*spaceTime/galaxyPosition.z)
+
 
         return position;
     }

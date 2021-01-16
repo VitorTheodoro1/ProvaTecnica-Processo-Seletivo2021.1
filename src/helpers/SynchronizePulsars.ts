@@ -4,12 +4,12 @@ import { TimeMachine } from "../entities/TimeMachine";
 import calculateSpaceTime from "./CalculateSpaceTime";
 
 const synchronizePulsars = (timeMachine:TimeMachine) => {
+
+    const SpaceTime = calculateSpaceTime(timeMachine);
     
-    /**
-     * CALC
-     */
+    const synchronizePulsars = Math.sqrt((timeMachine.currentPosition.x ** 2)+(timeMachine.currentPosition.y ** 2)+((timeMachine.currentPosition.z ** 2)/SpaceTime));
     
-    return 0;
+    return synchronizePulsars;
 }
 
 export default synchronizePulsars;
